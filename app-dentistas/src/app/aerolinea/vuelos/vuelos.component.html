@@ -1,0 +1,45 @@
+<h2>Vuelos</h2>
+<div>
+  <label>No. de Vuelo:</label>
+  <input type="number" id="noVuelo" class="formInput" [(ngModel)]="numeroVuelo">
+</div>
+<div>
+  <label>Fecha:</label>
+  <input type="text" id="fecha" class="formInput" [(ngModel)]="fecha">
+</div>
+<div>
+  <label>Horario:</label>
+  <input type="text" id="horario" class="formInput" [(ngModel)]="horario">
+</div>
+<div>
+  <label>Origen:</label>
+  <input type="text" id="origen" class="formInput" [(ngModel)]="origen">
+</div>
+<div>
+  <label>Destino:</label>
+  <input type="text" id="destino" class="formInput" [(ngModel)]="destino">
+</div>
+<div>
+  <input type="button" class="formButton" (click)="insertVuelo()" value="Guardar">
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>No.Vuelo</th>
+      <th>Fecha</th>
+      <th>Horario</th>
+      <th>Origen</th>
+      <th>Destino</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vuelo of vuelos">
+      <td>{{ vuelo.numeroVuelo }}</td>
+      <td>{{ vuelo.fecha }}</td>
+      <td>{{ vuelo.horario }}</td>
+      <td>{{ vuelo.origen }}</td>
+      <td>{{ vuelo.destino }}</td>
+    </tr>
+  </tbody>
+</table>

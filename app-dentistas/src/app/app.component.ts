@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PersonasService } from './services/personas.service'
+import { Persona } from './shared/interfaces/Persona';
 
 @Component({
   selector: 'component-one',
@@ -20,7 +22,7 @@ import { Component } from '@angular/core';
     <h4>appMath1</h4>
     <app-matematico #appMath1 [numero1]="-2" [numero2]="52" operacion="*" (buttonClicked)="onClick($event)"></app-matematico>
     <span>{{appMath1.numero1}} {{appMath1.operacion}} {{appMath1.numero2}} = {{ appMath1.resultado }}</span>
-    <!-- Con la referencia #alias solo se puede acceder a las propiedades marcadas como publicas -->
+    Con la referencia #alias solo se puede acceder a las propiedades marcadas como publicas
     <h4>appMath2</h4>
     <app-matematico #appMath2 [numero1]="35" [numero2]="12" operacion="+" (buttonClicked)="onClick($event)"></app-matematico>
     <span>{{appMath2.numero1}} {{appMath2.operacion}} {{appMath2.numero2}} = {{ appMath2.resultado }}</span>
@@ -44,7 +46,7 @@ import { Component } from '@angular/core';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let persona of personas; index as myIndex">
+        <tr *ngFor="let persona of personas | sort : 'nombre':'desc'; index as myIndex">
           <td>{{myIndex + 1}}</td>
           <td>{{persona.nombre | uppercase}}</td>
           <td>{{persona.apellido | slice:0:3}}</td>
@@ -54,20 +56,44 @@ import { Component } from '@angular/core';
       </tbody>
     </table>
 
+    <h4>Custom directives</h4>
+    <p appCopyright></p>
+    <input type="text" appNumeric />
+
+    <div *appPermission="['admin', 'agent']">
+      <p>Directiva de permisos</p>
+    </div>
+
+    <app-demoutilerias></app-demoutilerias>
+
+    Dato: <input type="text" id="txtDato" [(ngModel)]="dato">
+    {{dato}}
+
+    <app-vuelos></app-vuelos>
   `,
-  styleUrls: ['./app.component.css']
+  styleUrls: [
+    './app.component.css'
+  ],
+  providers: [
+    PersonasService
+  ]
 })
-export class ComponentOne {
+export class ComponentOne implements OnInit {
   title = 'app-dentistas';
   author = 'Sheila Dominguez';
   creationDate = '17-05-2022';
   location = 'Villahermosa, Tabasco';
+  personas : Persona[] = [];
+  dato : string = '';
+  private personasService : PersonasService;
 
-  public personas = [
-    {id: 1, nombre: "Sheila", apellido: "Dominguez", ciudad: "Villahermosa", moneda: '10000'},
-    {id: 2, nombre: "Teresita", apellido: "Dominguez", ciudad: "Villahermosa", moneda: '12000'},
-    {id: 3, nombre: "Enriqueta", apellido: "Jimenez", ciudad: "Villahermosa", moneda: '15000'}
-  ];
+  constructor() {
+    this.personasService = new PersonasService();
+  }
+
+  ngOnInit() {
+    this.personas = this.personasService.getPersonas();
+  }
 
   demo() : void {
     this.author = 'Modificado con el click handler';
