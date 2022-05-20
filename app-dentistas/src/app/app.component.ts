@@ -4,8 +4,10 @@ import { Persona } from './shared/interfaces/Persona';
 
 @Component({
   selector: 'component-one',
-  //templateUrl: './app.component.html',
-  template: `
+  templateUrl: './app.component.html',
+  /*template: `
+    <router-outlet></router-outlet>
+
     <div class="card highlight-card card-small">
       <span>Author: {{ author }}</span>
       <span>Creation Date: {{ creationDate }}</span>
@@ -46,7 +48,7 @@ import { Persona } from './shared/interfaces/Persona';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let persona of personas | sort : 'nombre':'desc'; index as myIndex">
+        <tr *ngFor="let persona of personas | sort : 'ciudad':'desc'; index as myIndex">
           <td>{{myIndex + 1}}</td>
           <td>{{persona.nombre | uppercase}}</td>
           <td>{{persona.apellido | slice:0:3}}</td>
@@ -70,7 +72,7 @@ import { Persona } from './shared/interfaces/Persona';
     {{dato}}
 
     <app-vuelos></app-vuelos>
-  `,
+  `,*/
   styleUrls: [
     './app.component.css'
   ],
@@ -85,14 +87,19 @@ export class ComponentOne implements OnInit {
   location = 'Villahermosa, Tabasco';
   personas : Persona[] = [];
   dato : string = '';
-  private personasService : PersonasService;
 
-  constructor() {
-    this.personasService = new PersonasService();
-  }
+  constructor(private personaService : PersonasService) { }
 
   ngOnInit() {
-    this.personas = this.personasService.getPersonas();
+    // this.personasService.getPersonas() regresa un observable objeto al que se puede subscribir (subscribe)
+    /*this.personas = this.personasService.getPersonas().subscribe({
+      next: (data) => {
+        this.personas = data
+      }
+    })*/
+
+    this.personaService.getPersonas().subscribe(response => this.personas = response);
+
   }
 
   demo() : void {

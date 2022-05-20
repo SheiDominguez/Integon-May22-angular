@@ -1,2 +1,22 @@
-<p>Nombre: {{ nombre }}</p>
-<p>Apellido: {{ apellido }}</p>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Ciudad</th>
+        <th>Moneda</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of personas | sort : 'ciudad':'desc'; index as myIndex">
+        <td><a [routerLink]="['detallepersonas', persona.id, persona.nombre]">{{ persona.id}}</a></td>
+        <td>{{persona.nombre | uppercase}}</td>
+        <td>{{persona.apellido | slice:0:3}}</td>
+        <td>{{persona.ciudad | uppercase}}</td>
+        <td>{{persona.moneda | currency}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

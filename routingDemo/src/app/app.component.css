@@ -1,0 +1,9 @@
+nav {
+  padding: 15px;
+  background-color: darkslateblue;
+}
+
+nav a{
+  padding: 10px;
+  color: aliceblue;
+}

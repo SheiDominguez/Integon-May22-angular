@@ -3,10 +3,6 @@ table th, td {
   border-bottom: 0.1em solid darkgray;
 }
 
-/*table td {
-  padding: 10px;
-}*/
-
 label{
   padding: 5px;
 }

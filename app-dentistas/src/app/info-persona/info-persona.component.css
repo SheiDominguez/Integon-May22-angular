@@ -1,0 +1,4 @@
+table th, td {
+  padding: 10px;
+  border-bottom: 0.1em solid darkgray;
+}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http';
 import { VuelosComponent } from './vuelos/vuelos.component';
 
 
@@ -9,7 +10,8 @@ import { VuelosComponent } from './vuelos/vuelos.component';
   declarations: [VuelosComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [ VuelosComponent ]
 })
